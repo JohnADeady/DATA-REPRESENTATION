@@ -1,7 +1,7 @@
 <html>
 	
 	<head>
-		<title>Functionality on	the webpage	</title>
+		<title>View Cars</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	</head>
 	
@@ -13,18 +13,17 @@
 		</div>
 		
 		<br/>
-		<h2><span>All Cars</span></h2>
-		<div>
+		<h2>All Cars</h2>	
 			<table class="table" id="carTable">
 					<tr>
-						<th>reg</th>
-						<th>make</th>
-						<th>model</th>
-						<th>price</th>
-						<th>Update</th>
+						<th>Reg</th>
+						<th>Make</th>
+						<th>Model</th>
+						<th>Price</th>
+						<th>Update</th>	
 						<th>Delete</th>
 					</tr>
-					<tr ="191 MO 123">
+					<tr>
 						<td>191 MO 123</td>
 						<td>Ford</td>
 						<td>Modeo</td>
@@ -32,7 +31,7 @@
 						<td><button onclick="showUpdate(this)">Update</button></td>
 						<td><button onclick="doDelete(this)">Delete</button></td>
 					</tr>
-					<tr id="12 D 123">
+					<tr>
 						<td>12 D 123</td>
 						<td>Fiat</td>
 						<td>Punto</td>
@@ -40,7 +39,7 @@
 						<td><button onclick="showUpdate(this)">Update</button></td>
 						<td><button onclick="doDelete(this)">Delete</button></td>
 					</tr>
-					<tr id="08 G 123">
+					<tr>
 						<td>08 G 123</td>
 						<td>Nissan</td>
 						<td>Almera</td>
@@ -51,25 +50,22 @@
 			</table>
 		</div>
 		<br/>
+		<h2><span id="createLabel">Create a</span> <span id="updateLabel">Update this</span> Car</h2>
 		
-		<div  id='createUpdateForm' style="display: none">
-			<h2><span id="createLabel">Create a</span> <span id="updateLabel">Update this</span> Car</h2>
-		
-					Reg <input type="text" name="reg"><br/>
-					Make <select name="make">
+		<div id='createUpdateForm' style="display: none">
+				Reg <input type="text" name="reg"><br/>
+				Make <select name="make">
 					<option value="Ford">Ford</option>
 					<option value="Fiat">Fiat</option>
 					<option value="Nissan">Nissan</option>
 					</select><br/>
-					Model <input type="text" name="model"><br/>
-					Price <input type="number" name="price"><br/>
+				Model <input type="text" name="model"><br/>
+				Price <input type="number" name="price"><br/>
 			
 		
-				<span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
-				<span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
-		
+		<span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+		<span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
 		</div>
-		
 	</body>
 	<script>
 		function showCreate(){
@@ -79,10 +75,10 @@
 			
 			document.getElementById('createLabel').style.display="inline";
 			document.getElementById('updateLabel').style.display="none";
+			
 			document.getElementById('doCreateButton').style.display="block";
 			document.getElementById('doUpdateButton').style.display="none";
 			}
-			
 		function showUpdate(){
 			document.getElementById('createLabel').style.display="none";
 			document.getElementById('UpdateLabel').style.display="inline";
@@ -104,12 +100,15 @@
 			showViewAll()
 			}
 			
+		
+			
+			
 		function showViewAll(){	
 			document.getElementById('showCreateButton').style.display="block";
 			document.getElementById('carTable').style.display="block";
 			document.getElementById('createUpdateForm').style.display="none";
 			}
-			
+		
 		function clearForm(){
 			var form = document.getElementById('createUpdateForm');
 			
@@ -213,6 +212,7 @@
 			tableElement.deleteRow(index);
 			}
 			
+		
 	</script>
 	
 </html>		
