@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title> JSON </title>
+	</head>
+	<body>
+		<button onclick="Title"> Title </button>
+	</body>
+	
+	<script>
+		function Title(){
+		var obj = JSON.parse('{"isbn": 123456, "author":"Andrew Beatty", "Title": "The emptness of Ping - Pong Balls"}')
+		
+		console.log(obj.Title)
+		}
+	</script>
+
+
+
+
+
+</html>
