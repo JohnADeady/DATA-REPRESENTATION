@@ -1,7 +1,7 @@
-<<<<<<< HEAD
 <html>
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
 	<title>
 		test get all
 	</title>
@@ -10,7 +10,7 @@
 	<body>
 		<button onclick="getAll()">getAll</button>
 		<button onclick="createCar()">Create</button>
-		<button onclick="UpdateCar()">Update</button>
+		<button onclick="updateCar()">Update</button>
 		<button onclick="deleteCar()">Delete</button>
 		
 		<div id="output"></div>
@@ -19,22 +19,22 @@
 				<th>reg</th><th>make</th><th>model</th><th>price</th><th></th><th></th>
 			</tr>
 		</table>
-	</body>
+	
 	<script>
 		 function getAll(){
-		 $.ajax({
-			 "url": "http://127.0.0.1:5000/cars",
-			 "method":"GET",
-			 "data":"",
-			 "dataType": "JSON",
-			 "success":function(result){
-				console.log(result);
+			 $.ajax({
+				 "url": "http://127.0.0.1:5000/cars",
+				 "method":"GET",
+				 "data":"",
+				 "dataType": "JSON",
+				 "success":function(result){
+				 console.log(result);
 
-			 },
-			 "error":function(xhr,status,error){
-				console.log("error: "+status+" msg:"+error);
-			 }
-		});
+				 },
+				 "error":function(xhr,status,error){
+				 console.log("error: "+status+" msg:"+error);
+				 }
+			}); 
 	}
 	
 	
@@ -59,21 +59,22 @@
 			 }
 			 
 		function updateCar(){
-					 var car = {"reg":"181 G 1234","make":"Ford","model":"Modeo","price":"00"}
-					 console.log(JSON.stringify(car));
-					 $.ajax({
-						 "url": "http://127.0.0.1:5000/cars/"+encodeURI(car.reg),
-						 "method":"PUT",
-						 "data":JSON.stringify(car),
-						 "dataType": "JSON",
-						 contentType: "application/json; charset=utf-8",
-						 "success":function(result){
-							console.log(result);
-							document.getElementById("output").innerText = JSON.stringify(result);
-					 },
-						"error":function(xhr,status,error){
-							console.log("error: "+status+" msg:"+error);
-					 }
+                var car = {"reg":"181 G 1234","make":"Ford","model":"Mondeo","price":"100"}
+				
+                console.log(JSON.stringify(car));
+                $.ajax({
+                    "url": "cars/" + encodeURI(car.reg),
+                    "method":"GET",
+                    "data":JSON.stringify(car),
+                    "dataType": "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    "success":function(result){
+                        console.log(result);
+                        document.getElementById("output").innerText = JSON.stringify(result);
+                    },
+                    "error":function(xhr,status,error){
+                        console.log("error: "+status+" msg:"+error);
+                    }
 				 });
 			 }
 			 
@@ -96,103 +97,5 @@
 				 });
 			 }
 	</script>
-=======
-<html>
-	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<title>
-		test get all
-	</title>
-	</head>
- 
-	<body>
-		<button onclick="getAll()">getAll</button>
-		<button onclick="createCar()">Create</button>
-		<button onclick="UpdateCar()">Update</button>
-		<button onclick="deleteCar()">Delete</button>
-		
-		<div id="output"></div>
-		<table id="carsTable">
-			<tr>
-				<th>reg</th><th>make</th><th>model</th><th>price</th><th></th><th></th>
-			</tr>
-		</table>
-	</body>
-	<script>
-		 function getAll(){
-		 $.ajax({
-			 "url": "http://127.0.0.1:5000/cars",
-			 "method":"GET",
-			 "data":"",
-			 "dataType": "JSON",
-			 "success":function(result){
-				console.log(result);
-
-			 },
-			 "error":function(xhr,status,error){
-				console.log("error: "+status+" msg:"+error);
-			 }
-		});
-	}
-	
-	
-		function createCar(){
-					var car = {"reg":"12 D 1234","make":"Fiat","model":"Punto", "price":3000}
-					console.log(JSON.stringify(car));
-					 $.ajax({
-						 "url": "http://127.0.0.1:5000/cars",
-						 "method":"POST",
-						 "data":JSON.stringify(car),
-						 "dataType": "JSON",
-						 contentType: "application/json; charset=utf-8",
-						 "success":function(result){
-							console.log(result);
-							document.getElementById("output").innerText = JSON.stringify(result);
-					 },
-					 
-						 "error":function(xhr,status,error){
-							console.log("error: "+status+" msg:"+error);
-					 }
-				 });
-			 }
-			 
-		function updateCar(){
-					 var car = {"reg":"181 G 1234","make":"Ford","model":"Modeo","price":"00"}
-					 console.log(JSON.stringify(car));
-					 $.ajax({
-						 "url": "http://127.0.0.1:5000/cars/"+encodeURI(car.reg),
-						 "method":"PUT",
-						 "data":JSON.stringify(car),
-						 "dataType": "JSON",
-						 contentType: "application/json; charset=utf-8",
-						 "success":function(result){
-							console.log(result);
-							document.getElementById("output").innerText = JSON.stringify(result);
-					 },
-						"error":function(xhr,status,error){
-							console.log("error: "+status+" msg:"+error);
-					 }
-				 });
-			 }
-			 
-		function deleteCar(){
-					 var car = {"reg":"12 D 1234"}
-					 console.log(JSON.stringify(car));
-					 $.ajax({
-						 "url": "http://127.0.0.1:5000/cars/"+encodeURI(car.reg),
-						 "method":"DELETE",
-						 "data":"",
-						 "dataType": "JSON",
-						 contentType: "application/json; charset=utf-8",
-						 "success":function(result){
-							console.log(result);
-							document.getElementById("output").innerText = JSON.stringify(result);
-					 },
-						 "error":function(xhr,status,error){
-							console.log("error: "+status+" msg:"+error);
-					 }
-				 });
-			 }
-	</script>
->>>>>>> 955aac562b369b9e51df3a0f30a7478d09151948
+ </body>
 </html>
