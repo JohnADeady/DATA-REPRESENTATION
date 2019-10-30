@@ -1,0 +1,27 @@
+<?XML version="1.0" encoding ="UTP-8" ?>
+<library>
+	<catalogues category="Technical Books">
+		<ISBN>9781118162132</ISBN>
+		<titel>Beginning XML</title>
+		<author>Joe Fawcett</author>
+	</catalogues>
+	
+	<catalogues category="Technical Books">
+		<ISBN>9780072195361</ISBN>
+		<title>Wireless XML Developer's Guide</title>
+		<author> Mikael Hillborg</author>	
+	</catalogues>
+	
+	<catalogues category="Cookery Books">
+		<ISBN>9781444756692</ISBN>
+		<title>Gordon Ramsay's Ultimate Cookery Course</title>
+		<author>Gordon Ramsay</author>
+	</catalogues>
+	
+	<catalogues category="Cookery Books">
+		<ISBN>9781408845042</ISBN>
+		<title>Kitchen Confidential : Insider's Edition</title>
+		<author>Anthony Bourdain</author>
+	</catalogues>
+	
+</library>
