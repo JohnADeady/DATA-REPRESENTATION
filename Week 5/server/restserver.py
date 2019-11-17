@@ -97,7 +97,3 @@ def not_found400(error):
 
 if __name__ == '__main__' :
     app.run(debug= True)
-
-
-    
-

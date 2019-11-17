@@ -3,12 +3,12 @@ import json
 
 apiKey = 'f59b1cdb743ce0ab9b21a94ac246b02f06ee2d85'
 url = 'https://api.github.com/repos/datarepresentationstudent/aPrivateOne'
-filename = "repo.json"
+filename = "deezer.json"
 
 
 response = requests.get(url, auth=('token',apiKey))
-repoJSON = response.json()
+data = response.json()
 
 #print (response.json())
 file = open(filename, 'w')
-json.dump(repoJSON, file, indent=4)
+json.dump(data, file, indent=4)
