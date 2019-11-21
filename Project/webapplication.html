@@ -1,44 +1,46 @@
+<!DOCTYPE html>
 <html>
 	<head>
-		<title>Eminem</title>
+		<! -- Webpage title --!>
+		<title>Deezer - API</title>
+		
+		
 	<head>
 	
 	<body>
 	
+	
+	
+		<h2>Deezer - API</h2>
+        <div>
+			<button id="getAll" onclick="getAll()">Create</button>
+		</div>
+		
+		
+		 
 	
 	<body>
 	
 	<script>
-		input type="file" id="input" />
-		
-			import readXlsxFile from 'read-excel-file'
-	 
-				const input = document.getElementById('input')
-	 
-				input.addEventListener('change', () => {
-				  readXlsxFile(input.files[0]).then((rows) => {
-					// `rows` is an array of rows
-					// each row being an array of cells.
-				  })
-			})
-	
-	
+		function getAll(){
+                $.ajax({
+                    "url": "http://127.0.0.1:5000/deezer",
+                    "method": "GET",
+                    "data": "",
+                    "dataType": "JSON",
+                    "success": function (result) {
+                        console.log(result);
+                        for(car of result.cars){
+                            addCarToTable(car);
+                        }
+                    },
+                    "error": function (xhr, status, error) {
+                        console.log("error: " + status + " msg:" + error);
+                    }
+                });
+            }
+    getAll();
 	</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </html>
 
