@@ -17,29 +17,20 @@
 		</div>
 		
 		
-		 
+		<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> 
 	
 	<body>
 	
 	<script>
 		function getAll(){
                 $.ajax({
-                    "url": "http://127.0.0.1:5000/deezer",
-                    "method": "GET",
-                    "data": "",
-                    "dataType": "JSON",
-                    "success": function (result) {
-                        console.log(result);
-                        for(car of result.cars){
-                            addCarToTable(car);
-                        }
-                    },
-                    "error": function (xhr, status, error) {
-                        console.log("error: " + status + " msg:" + error);
-                    }
-                });
-            }
-    getAll();
+                    "url": "project.py",
+                    context: document.body
+            }).done(function() {
+             alert('finished python script');;
+            });
+           }
+   
 	</script>
 
 </html>

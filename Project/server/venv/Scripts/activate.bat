@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set "VIRTUAL_ENV=C:\Users\jad25\Documents\Data Analysis\Semester Four\Data Represention\Exercise Two\dataRepresentation\Project\venv"
+set "VIRTUAL_ENV=C:\Users\jad25\Documents\Data Analysis\Semester Four\Data Represention\Exercise Two\dataRepresentation\Project\server\venv"
 
 if not defined PROMPT (
     set "PROMPT=$P$G"
