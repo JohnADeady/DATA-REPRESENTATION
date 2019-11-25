@@ -1,37 +1,251 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<! -- Webpage title --!>
+		<!-- Webpage title -->
 		<title>Deezer - API</title>
 		
+		<!-- Added JS, CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		
+		<!-- Added JQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		
 	<head>
-	
 	<body>
+		<!-- Header title -->
+		<h1>Deezer</h1>
+		<div>
+			<button id="showCreateButton" onclick="showCreate()">Create</button>
+		</div>
 	
-	
-	
-		<h2>Deezer - API</h2>
-        <div>
-			<button id="getAll" onclick="getAll()">Create</button>
+		<div>
+			<table class="table" id="deezerTable">
+			</table>
 		</div>
 		
-		
-		<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> 
+		<div id='createUpdateForm' style="display: none">
+			<h2><span id="createlabel">Create a</span> <span id="updatelabel">Update this</span> Form</h2>
+			Id <input type="text" name="id"><br/>
+			Title <input type="text" name="title"><br/>
+			Artist <input type="text" name="artist"><br/>
+			Album <input type="text" name="album"><br/>
+			Duration <input type="number" name="duration"><br/>
+			Rank <input type="number" name="rank"><br/>
+			<span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+			<span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
+		</div>	
 	
+		
 	<body>
 	
 	<script>
-		function getAll(){
+	
+	function showCreate(){
+		document.getElementById('showCreateButton').style.display="none"
+		document.getElementById('deezerTable').style.display="none"
+		document.getElementById('createUpdateForm').style.display="block"
+		
+		document.getElementById('createlabel').style.display="inline"
+		document.getElementById('updatelabel').style.display="none"
+		
+		document.getElementById('doCreateButton').style.display="block"
+		document.getElementById('doUpdateButton').style.display="none"
+	}
+	
+	
+	function showViewAll() {
+		document.getElementById('showCreateButton').style.display="block"
+		document.getElementById('deezerTable').style.display="inline"
+			
+		document.getElementById('createUpdateForm').style.display="none"
+		
+	}
+	
+	function showUpdate(buttonElement){
+		document.getElementById('showCreateButton').style.display="none"
+		document.getElementById('deezerTable').style.display="none"
+		document.getElementById('createUpdateForm').style.display="block"
+		
+		document.getElementById('createlabel').style.display="none"
+		document.getElementById('updatelabel').style.display="inline"
+		
+		document.getElementById('doCreateButton').style.display="none"
+		document.getElementById('doUpdateButton').style.display="block"
+		
+		var rowElement = buttonElement.parentNode.parentNode
+		var deezer = getCarFromRow(rowElement)
+		populateFormWithCar(deezer)
+	}
+	function doCreate(){	
+		var form = document.getElementById('createUpdateForm')
+		
+		var deezer = {}
+		deezer.id = form.querySelector('input[name="id"]').value
+		deezer.title = form.querySelector('select[name="title"]').value
+		dezeer.artist =	form.querySelector('input[name="artist"]').value
+		car.album =	form.querySelector('input[name="album"]').value
+		car.duration =	form.querySelector('input[name="duration"]').value
+		car.rank =	form.querySelector('input[name="rank"]').value
+		console.log(JSON.stringify(deezer))
+		addCarToTable(deezer)
+		clearForm()	
+		
+			 $.ajax({
+						 "url": "http://127.0.0.1:5000/deezers",
+						 "method":"POST",
+						 "data":JSON.stringify(deezer),
+						 "dataType": "JSON",
+						 contentType: "application/json; charset=utf-8",
+						 "success":function(result){
+							console.log(result);
+							
+					 },
+					 
+						 "error":function(xhr,status,error){
+							console.log("error: "+status+" msg:"+error);
+					 }
+				 });
+		
+		showViewAll()
+	}
+	
+	function doUpdate(){
+		var car = getCarFromForm();
+		var rowElement = document.getElementById(deezer.id)
+		setCarInRow(rowElement, deezer)
+			$.ajax({
+                    "url": "cars/" + encodeURI(deezer.id),
+                    "method":"GET",
+                    "data":JSON.stringify(deezer),
+                    "dataType": "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    "success":function(result){
+                        console.log(result);
+                        
+                    },
+                    "error":function(xhr,status,error){
+                        console.log("error: "+status+" msg:"+error);
+                    }
+				 });
+		clearForm()
+		showViewAll()
+	}
+	function doDelete(r){
+		var tableElement = document.getElementById('deezerTable')
+		var index = r.parentNode.parentNode.Id;
+			$.ajax({
+						 "url": "http://127.0.0.1:5000/deezers/"+encodeURI(deezer.id),
+						 "method":"DELETE",
+						 "data":"",
+						 "dataType": "JSON",
+						 contentType: "application/json; charset=utf-8",
+						 "success":function(result){
+							console.log(result);
+							
+					 },
+						 "error":function(xhr,status,error){
+							console.log("error: "+status+" msg:"+error);
+					 }
+				 });
+		tableElement.deleteRow(index);
+	}
+	
+	
+	function clearForm(){
+		var form = document.getElementById('createUpdateForm')
+		form.querySelector('input[name="id"]').disabled = false
+		form.querySelector('input[name="id"]').value =''
+		form.querySelector('select[name="title"]').value =''
+		form.querySelector('input[name="artist"]').value =''
+		form.querySelector('input[name="album"]').value =''
+		form.querySelector('input[name="duration"]').value =''
+		form.querySelector('input[name="rank"]').value =''
+	}
+	function addCarToTable(deezer){
+		var tableElement = document.getElementById('deezerTable')
+		var rowElement = tableElement.insertRow(-1)
+		rowElement.setAttribute('id',deezer.id)
+		var cell1 = rowElement.insertCell(0);
+		cell1.innerHTML = deezer.id
+		var cell2 = rowElement.insertCell(1);
+		cell2.innerHTML = deezer.title
+		var cell3 = rowElement.insertCell(2);
+		cell3.innerHTML = deezer.artist
+		var cell4 = rowElement.insertCell(3);
+		cell4.innerHTML = deezer.album
+		var cell5 = rowElement.insertCell(4);
+		cell5.innerHTML = deezer.duration
+		var cell6 = rowElement.insertCell(5);
+		cell6.innerHTML = deezer.rank
+		var cell7 = rowElement.insertCell(6);
+		cell7.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+		var cell8 = rowElement.insertCell(7);
+		cell8.innerHTML = '<button onclick="doDelete(this)">Delete</button>'
+	}
+	function getCarFromRow(rowElement){
+		var deezer ={}
+		deezer.id = rowElement.cells[0].firstChild.textContent
+		deezer.title = rowElement.cells[1].firstChild.textContent
+		deezer.artist = rowElement.cells[2].firstChild.textContent
+		deezer.album = rowElement.cells[3].firstChild.textContent
+		deezer.duration = rowElement.cells[4].firstChild.textContent
+		deezer.rank = rowElement.cells[5].firstChild.textContent
+		return deezer
+	}
+	function populateFormWithCar(deezer){
+		var form = document.getElementById('createUpdateForm')
+        form.querySelector('input[name="id"]').disabled = true
+		form.querySelector('input[name="id"]').value = deezer.id
+		form.querySelector('select[name="title"]').value = deezer.title
+		form.querySelector('input[name="artist"]').value = deezer.artist
+		form.querySelector('input[name="album"]').value = deezer.album
+		form.querySelector('input[name="duration"]').value = deezer.duration
+		form.querySelector('input[name="rank"]').value = deezer.rank
+		return deezer
+	}
+	function getCarFromForm(){
+		var form = document.getElementById('createUpdateForm')
+		var deezer = {}
+		deezer.id = form.querySelector('input[name="id"]').value
+		deezer.title = form.querySelector('select[name="title"]').value
+		deezer.artist = form.querySelector('input[name="artist"]').value
+		deezer.album = form.querySelector('input[name="album"]').value
+		deezer.duration = form.querySelector('input[name="duration"]').value
+		deezer.rank = form.querySelector('input[name="rank"]').value
+		console.log(JSON.stringify(deezer))
+		return deezer
+	}
+	function setCarInRow(rowElement, deezer){
+		rowElement.cells[0].firstChild.textContent= deezer.id
+		rowElement.cells[1].firstChild.textContent= deezer.title
+		rowElement.cells[2].firstChild.textContent= deezer.artist
+		rowElement.cells[3].firstChild.textContent= deezer.album
+		rowElement.cells[4].firstChild.textContent= deezer.duration
+		rowElement.cells[5].firstChild.textContent= deezer.rank
+	
+	}
+	
+	function getAll(){
                 $.ajax({
-                    "url": "project.py",
-                    context: document.body
-            }).done(function() {
-             alert('finished python script');;
-            });
-           }
-   
+                    "url": "http://127.0.0.1:5000/deezers",
+                    "method": "GET",
+                    "data": "",
+                    "dataType": "JSON",
+                    "success": function (result) {
+                        console.log(result);
+                        for(car of result.cars){
+                            addCarToTable(car);
+                        }
+                    },
+                    "error": function (xhr, status, error) {
+                        console.log("error: " + status + " msg:" + error);
+                    }
+                });
+            }
+    getAll();
+	
+	
+	
 	</script>
-
 </html>
 
