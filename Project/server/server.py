@@ -2,6 +2,7 @@
 
 # Import necessay libraries 
 from flask import Flask, jsonify,  request, abort, make_response
+from artistsDAO import artistsDAO 
 
 # Search for server path
 app = Flask ('__name__', static_url_path='', static_folder='.')
@@ -9,102 +10,92 @@ app = Flask ('__name__', static_url_path='', static_folder='.')
 app.config['JSON_SORT_KEYS'] = False
 
 
-deezers = [
+artists = [
     {
-        "id":123,
-        "title":"Ford",
-        "artist":"Modeo",
-        "album":"JJp",
-		"duration":124,
-		"rank":1
+        "id":1,
+        "name":"Eminem",
+        "genre":"Hip Hop",
+        "albums":124
     },
-	
-	{
-        "id":12,
-        "title":"GGG",
-        "artist":"Mod",
-        "album":"JJ",
-		"duration":14,
-		"rank":2
+    
+    {
+        "id":2,
+        "name":"Neil Young",
+        "genre":"Folk Rock",
+        "albums":18
     }
 ]
+nextId=3
 
 # Use method GET to get all data
-# curl -i http://localhost:5000/deezers
-@app.route('/deezers', methods=['GET'])
+# curl -i http://localhost:5000/artists
+@app.route('/artists')
 def getAll():
-    return jsonify(deezers)
+    results = artistsDAO.getAll()
+    return jsonify(results)
 
-# Use method GET to find data by id	
-#curl -i http://localhost:5000/deezers/123
-@app.route('/deezers/<int:id>', methods =['GET'])
-def findById(id):
-	foundId = list(filter(lambda t : t['id'] == id , deezers))
-	if len(foundId) == 0:
-		return jsonify( { 'deezers' : '' }),204
+# Use method GET to find data by id 
+# curl -i http://localhost:5000/artists/1
+@app.route('/artists/<int:id>', methods =['GET'])
+def findByID(id):
+    foundArtists = artistsDAO.findByID(id)
 
-	return jsonify( { 'deezers' : foundId[0] })
+    return jsonify(foundArtists)
 
-# Use method POST to input new data	
-# λ  curl -i -H "Content-Type:application/json" -X POST -d "{\"id\":1000000,\"Title\":\"Up\",\"Artist\":\"Punto\",\"Album\":\"PPp\",\"duration\":55,\"rank\":505312}" http://localhost:5000/deezer
-@app.route('/deezers', methods=['POST'])
-def createDeezer():
+# Use method POST to input new data 
+# curl -i -H "Content-Type:application/json" -X POST -d "{\"name\":\"Neil Young\",\"genre\":\"Folk Rock\",\"albums\":312}" http://localhost:5000/artists
+@app.route('/artists', methods=['POST'])
+def createartist():
     if not request.json:
         abort(400)
-    if not 'id' in request.json:
-        abort(400)
-    deezer={
-        "id":request.json['id'],
-        "title":request.json['title'],
-        "artist":request.json['artist'],
-        "album":request.json['album'],
-		"duration":request.json['duration'],
-		"rank": request.json['rank']
+        
+    artists = {
+        "name": request.json['name'],
+        "genre": request.json['genre'],
+        "albums": request.json['albums']
     }
-    deezers.append(deezer)
-    return jsonify(deezer),201
+    features = (artists['name'],artists['genre'],artists['albums'])
+    newId = artistsDAO.create(features)
+    artists['id'] = newId
+    
+    return jsonify(artists),201
 
-# Use method PUT to dataset	
-#curl -i -H "Content-Type:application/json" -X PUT -d "{\"title\":\"Fiesta\"}" http://localhost:5000/deezers/123
-@app.route('/deezers/<int:id>', methods =['PUT'])
-def updateDeezer(id):
-    foundDeezers = list(filter(lambda t : t['id'] == id, deezers))
-    if (len(foundDeezers) == 0):
+# Use method PUT to dataset 
+# curl -i -H "Content-Type:application/json" -X PUT -d "{\"title\":\"Fiesta\"}" http://localhost:5000/artists/123
+@app.route('/artists/<int:id>', methods =['PUT'])
+def updateartist(id):
+    foundArtists = artistsDAO.findByID(id)
+    if (len(foundArtists) == 0):
         abort(404)
-    foundDeezers = foundDeezers[0]
+    
     if not request.json:
         abort(400)
     reqJson = request.json
+    
+    if 'albums' in request.json and type(reqJson['albums']) is not int:
+        abort(400)
+    
+        
+    if 'name' in reqJson:
+        foundArtists['name'] = reqJson['name']
+    if 'genre' in reqJson:
+        foundArtists['genre'] = reqJson['genre']
+    if 'albums' in reqJson:
+        foundArtists['albums'] = reqJson['albums']
 	
-    if 'duration' in request.json and type(reqJson['duration']) is not int:
-        abort(400)
-    if 'rank' in request.json and type(reqJson['rank']) is not int:
-        abort(400)
-		
-    if 'title' in reqJson:
-        foundDeezers['title'] = reqJson['title']
-    if 'artist' in reqJson:
-        foundDeezers['artist'] = reqJson['artist']
-    if 'album' in reqJson:
-        foundDeezers['album'] = reqJson['album']
-    if 'duration' in reqJson:
-        foundDeezers['duration'] = reqJson['duration']
-    if 'rank' in reqJson:
-        foundDeezers['rank'] = reqJson['rank']		
-	    
-    return jsonify(foundDeezers)
-
+    features = (foundArtists['name'],foundArtists['genre'],foundArtists['albums'], foundArtists['id'])
+    artistsDAO.update(features)
+    return jsonify(foundArtists)
+    
 # Use method DELETE to delete dataset
-# curl -X DELETE "http://localhost:5000/deezers/1000000"
-@app.route('/deezers/<int:id>', methods =['DELETE'])
-def deleteDeezer(id):
-    foundDeezers = list(filter (lambda t : t['id'] == id, deezers))
-    if len(foundDeezers) == 0:
-        abort(404)
-    deezers.remove(foundDeezers[0])
+# curl -X DELETE "http://localhost:5000/artists/1000000"
+@app.route('/artists/<int:id>', methods =['DELETE'])
+def deleteartist(id):
+    artistsDAO.delete(id)
+        
     return  jsonify( { 'Completed':True })
 
-# error handling if data not found	
+# error handling if data not found  
 @app.errorhandler(404)
 def not_found404(error):
     return make_response( jsonify( {'error':'Not found' }), 404)
