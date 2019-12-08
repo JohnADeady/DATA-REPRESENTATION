@@ -58,14 +58,6 @@
 	  width: 10px;
 		}
 		
-
-	/* Inserting image and positioning the background image */
-	body{
-		background-image: url("angkor.jpg"); /* Inserting image */
-		background-repeat: no-repeat; /* Do not repeat the image */
-		background-size: cover; /* Resize the background image to cover the entire container */
-		}
-		
 	/* styling header and paragraph*/
 	.contact {
 	  background-color:lightblue;
@@ -261,11 +253,11 @@
 		albums.artist =	form.querySelector('input[name="artist"]').value
 		albums.duration = form.querySelector('input[name="duration"]').value
 		console.log(JSON.stringify(albums))
-		
+		host=window.location.origin
 			
 		
 			 $.ajax({
-						 "url": "http://127.0.0.1:5000/albums",
+						 "url":host+"/albums",
 						 "method":"POST",
 						 "data":JSON.stringify(albums),	
 						 "dataType": "JSON",
@@ -288,8 +280,9 @@
 	function doUpdate(){
 		var albums = getAlbumsFromForm();
 		var rowElement = document.getElementById(albums.id);
+		host=window.location.origin
 			$.ajax({
-                    "url":"http://127.0.0.1:5000/albums/"+encodeURI(albums.id),
+                    "url":host+"/albums/"+encodeURI(albums.id),
                     "method":"PUT",
                     "data":JSON.stringify(albums),
                     "dataType": "JSON",
@@ -310,8 +303,9 @@
 		var tableElement = document.getElementById('albumsTable');
 		var rowElement = r.parentNode.parentNode;
 		var index = rowElement.rowIndex;
+		host=window.location.origin
 			$.ajax({
-						 "url":"http://127.0.0.1:5000/albums/"+encodeURI(album.id),
+						 "url":host+"/albums/"+encodeURI(album.id),
 						 "method":"DELETE",
 						 "data":"",
 						 "dataType": "JSON",
@@ -393,8 +387,9 @@
 	}
 	
 	function getAllal(){
+	host=window.location.origin
                 $.ajax({
-                    "url": "http://127.0.0.1:5000/albums",
+                    "url": host+"/albums",
                     "method": "GET",
                     "data": "",
                     "dataType": "JSON",

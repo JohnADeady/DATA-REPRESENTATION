@@ -1,14 +1,15 @@
 import mysql.connector 
+import dbconfig as cfg
 
 class ArtistsDAO:     
 	db=""     
 	def __init__(self):          
 	    self.db = mysql.connector.connect(        
-		host="127.0.0.1",
-		user="root",
-		password="Bruree06",
-		auth_plugin='mysql_native_password',        
-		database="datarepresentation"
+		host=cfg.mysql['host'],
+		user=cfg.mysql['username'],
+		password=cfg.mysql['password'],
+		#auth_plugin='mysql_native_password',        
+		database=cfg.mysql['datarepresentation']
 		)     
 		
 	def create(self, values):

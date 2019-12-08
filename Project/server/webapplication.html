@@ -234,11 +234,12 @@
 		artists.genre =	form.querySelector('select[name="genre"]').value
 		artists.albums = form.querySelector('input[name="albums"]').value
 		console.log(JSON.stringify(artists))
+		host=window.location.origin
 		
 			
 		
 			 $.ajax({
-						 "url": "http://127.0.0.1:5000/artists",
+						 "url": host+"/artists",
 						 "method":"POST",
 						 "data":JSON.stringify(artists),
 						 "dataType": "JSON",
@@ -263,8 +264,9 @@
 	function doUpdate(){
 		var artists = getArtistsFromForm();
 		var rowElement = document.getElementById(artists.id);
+		host=window.location.origin
 			$.ajax({
-                    "url":"http://127.0.0.1:5000/artists/"+encodeURI(artists.id),
+                    "url":host+"artists/"+encodeURI(artists.id),
                     "method":"PUT",
                     "data":JSON.stringify(artists),
                     "dataType": "JSON",
@@ -285,8 +287,9 @@
 		var tableElement = document.getElementById('artistsTable');
 		var rowElement = r.parentNode.parentNode;
 		var index = rowElement.rowIndex;
+		host=window.location.origin
 			$.ajax({
-						 "url":"http://127.0.0.1:5000/artists/"+encodeURI(artist.id),
+						 "url":host+"/artists/"+encodeURI(artist.id),
 						 "method":"DELETE",
 						 "data":"",
 						 "dataType": "JSON",
@@ -364,8 +367,9 @@
 	}
 	
 	function getAll(){
+	host=window.location.origin
                 $.ajax({
-                    "url": "http://127.0.0.1:5000/artists",
+                    "url": host+"/artists",
                     "method": "GET",
                     "data": "",
                     "dataType": "JSON",
