@@ -9,7 +9,7 @@ class ArtistsDAO:
 		user=cfg.mysql['username'],
 		password=cfg.mysql['password'],
 		#auth_plugin='mysql_native_password',        
-		database=cfg.mysql['datarepresentation']
+		database=cfg.mysql['database']
 		)     
 		
 	def create(self, values):
