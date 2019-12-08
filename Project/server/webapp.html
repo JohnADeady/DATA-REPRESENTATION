@@ -6,16 +6,168 @@
 		<!-- Added JQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	</head>
+	<style>
+	/* Body margin of 20px with font-family */
+	body {
+		margin: 20px;
+		font-family: Comic Sans MS, cursive, sans-serif;
+		}
+	
+	/* background-color blue */
+	body {background-color: #B0E0E6;
+		}
+	
+	/* the top overflow content is hidden and background colour with box-shadow */
+	.top{
+		overflow: hidden;
+		background-color: #800040;
+		box-shadow: 10px 10px 5px black;
+		}
+			
+	/* This function details the text within the the top */		
+	.top a {
+		float: left; 
+		color: white;
+		text-align: center;
+		padding: 24px 36px;
+		text-decoration: underline;
+		font-size: 19px;
+		}
+			
+	/* When you hover over one of the heading in changes colour */	
+	.top a:hover {
+		background-color: #00cccc;
+		}
+	
+	/* changes class active to blue and white */
+	.top a.active {
+	background-color: darkblue;
+	color: white;
+		}
+		
+	/* When you hover over one of the heading in changes colour */	
+	.top a.active:hover {
+		background-color: #00cccc;
+		}	
+		
+	/* footer label positioning fixed at below position*/
+	.footer {
+	  position: fixed;
+	  left: 0;
+	  bottom: 0;
+	  width: 10px;
+		}
+		
+
+	/* Inserting image and positioning the background image */
+	body{
+		background-image: url("angkor.jpg"); /* Inserting image */
+		background-repeat: no-repeat; /* Do not repeat the image */
+		background-size: cover; /* Resize the background image to cover the entire container */
+		}
+		
+	/* styling header and paragraph*/
+	.contact {
+	  background-color:lightblue;
+	  border: 4px solid lightgreen;
+	  border-radius: 1em;
+			}
+
+	/* This will center the form on the page, background-color and border */		
+	form {
+	  margin: 0 auto;
+	  width: 600px;
+	  background-color:lightblue;
+	  padding: 1em;
+	  border: 4px solid lightgreen;
+	  border-radius: 1em;
+	}
+	
+	.table, th, td{
+	  border: 3px solid black;
+	  background-color: yellow; 
+	}
+	
+	.tr:hover {background-color: #f5f5f5;}
+	
+	.table{
+	  table-layout: fixed;
+	  width: 1200px;
+	}
+
+	/* Style inputs, select elements and textareas */
+	.input[type=text], select, textarea{
+	  width: 100%;
+	  padding: 12px;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  box-sizing: border-box;
+	  resize: vertical;
+	}
+
+	/* Style the label to display next to the inputs */
+	.label {
+	  padding: 12px 12px 12px 0;
+	  display: block;
+	}
+	
+	/* Style the container */
+	.container {
+	  width: 1500px;
+	  margin: auto;	
+	  background-color: #f2f2f2;
+	 
+	}
+
+	/* Floating column for labels: 25% width */
+	.col-25 {
+	  float: none;
+	  width: 25%;
+	  margin-top: 6px;
+	  }
+
+	/* Floating column for inputs: 75% width */
+	.col-75 {
+	  float: none;
+	  width: 75%;
+	  margin-top: 6px;
+	}
+
+	/* Clear floats after the columns */
+	.row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+
+	/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+	@media screen and (max-width: 600px) {
+	  .col-25, .col-75, input[type=submit] {
+		width: 100%;
+		margin-top: 0;
+  }
+}
+</style>
 	
 	<body>
+	
+		<div class="top">
+		<a href="login.html">Login</a>
+		<a href="webapplication.html">Artists</a>
+		<a class="active" href="webapp.html">Albums</a>
+		<a href="contact.html">Contact Us</a>
+		</div>
+		<br>
+		
 		<h1>Albums</h1>
 		<div>
 			<button id="showCreateButton" onclick="showCreate()">Create</button>
 		</div>
+		<br/>
 		
 		<div>
-			<table border="1" class="table" id="albumsTable">
-				<tr>
+			<table class="table" id="albumsTable">
+				<tr class="tr">
 					<th>ID</th>
 					<th>Title</th>
 					<th>Artist</th>
@@ -26,12 +178,39 @@
 			</table>
 		</div>
 		
-		<div id='createUpdateForm' style="display: none">
-			<h2><span id="createlabel">Create an</span> <span id="updatelabel">Update this</span> Albums</h2>
-			<input type="hidden" name="id">
-			Title <input type="text" name="title"><br/>
-			Artist <input type="text" name="artist"><br/>
-			Duration <input type="number" name="duration"><br/>
+		<div class="container" id='createUpdateForm' style="display: none">
+			<h2><span id="createlabel">Create an</span> <span id="updatelabel">Update this</span> Album</h2>
+			<div class="row">
+				<div class="col-75">
+					<input type="hidden" name="id">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-25">
+			<div class="row">
+				<div class="col-25">
+					<label for="fname">Title</label>
+				</div>
+				<div class="col-75">
+					<input class="type="text" name="title">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-25">
+					<label for="fname">Artist</label>
+				</div>
+				<div class="col-75">
+					<input class="type="text" name="artist">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-25">
+					<label for="fname">Duration</label>
+				</div>
+				<div class="col-75">
+					<input type="number" name="duration">
+				</div>
+			</div>
 			
 			<span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
 			<span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>

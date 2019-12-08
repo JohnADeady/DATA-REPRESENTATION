@@ -1,15 +1,15 @@
 #!flask/bin/python
 
 # Import necessay libraries 
-from flask import Flask, jsonify,  request, abort, make_response
-
+from flask import Flask, jsonify,  request, abort, make_response, render_template, redirect, url_for, request
+from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 from artistsDAO import artistsDAO 
 
 # Search for server path
 app = Flask ('__name__', static_url_path='', static_folder='.')
 # Don't sort array
 app.config['JSON_SORT_KEYS'] = False
-
+app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 
 nextId=3
 
@@ -149,6 +149,26 @@ def deletealbums(id):
     artistsDAO.deleteal(id)
         
     return  jsonify( { 'Completed':True })
+	
+@app.route('/')
+def home():
+	if not session.get('logged_in'):
+		return render_template('login.html')
+	else:
+		return "Hello Boss!"
+
+@app.route('/login', methods=['POST'])
+def login():
+	if request.form['password'] == 'password' and request.form['username'] == 'admin':
+		session['logged_in'] = True
+	else:
+		flash('wrong password!')
+	return home()
+	
+@app.route("/logout")
+def logout():
+	session['logged_in'] = False
+	return home()
 
 # error handling if data not found  
 @app.errorhandler(404)
@@ -160,5 +180,5 @@ def not_found404(error):
 def not_found400(error):
     return make_response( jsonify( {'error':'Bad Request' }), 400)
 
-if __name__ == '__main__' :
+if __name__ == '__main__':
     app.run(debug= True)
