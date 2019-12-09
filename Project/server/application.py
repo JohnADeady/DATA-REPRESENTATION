@@ -2,7 +2,7 @@
 
 # Import necessay libraries 
 from flask import Flask, jsonify,  request, abort, make_response, render_template, redirect, url_for, request
-from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
+from WTForms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 from artistsDAO import artistsDAO 
 
 # Search for server path
