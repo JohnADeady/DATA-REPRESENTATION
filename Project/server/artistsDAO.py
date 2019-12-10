@@ -1,6 +1,7 @@
 import mysql.connector 
 import dbconfig as cfg
 
+
 class ArtistsDAO:     
 	db=""     
 	def __init__(self):          
