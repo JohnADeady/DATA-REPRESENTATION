@@ -1,6 +1,7 @@
 <
 <html>
 	<head>
+	<!-- Added JQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<title>
 		test get all
@@ -8,6 +9,7 @@
 	</head>
  
 	<body>
+		<!-- create button, table and output -->
 		<button onclick="getAll()">getAll</button>
 		<div id="output"></div>
 		<table id="carsTable">
@@ -17,6 +19,7 @@
 		</table>
 	</body>
 	<script>
+	<!-- create car using jquery -->
 		 function createCar(){
 					var car = {"reg":"12 D 1234","make":"Fiat","model":"Punto", "price":3000}
 					console.log(JSON.stringify(car));

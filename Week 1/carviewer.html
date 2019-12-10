@@ -1,10 +1,21 @@
 <html>
-	
+	<!-- Create a header with title "View Cars" -->
 	<head>
 		<title>View Cars</title>
+		
+		<!-- Magic line - Bootscrap a CSS Framework to style web page -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<head>
 	
+	<!-- Styling the table -->
+	<style>
+	.table, th, td {
+	<!-- border 4 width solid and black colour -->
+	  border: 4px solid black;
+	}
+	</style>
+	
+	<!-- Create a body and with this create button table with rows and -->
 	<body>
 		<h1>Cars</h1>
 		
@@ -15,7 +26,8 @@
 		<br/>
 		<h2><span>All Cars</span></h2>
 		<div>
-			<table class="table">
+			<!-- use class to style -->
+			<table border="1" class="table">
 					<tr>
 						<th>reg</th>
 						<th>make</th>
@@ -52,6 +64,8 @@
 		</div>
 		<br/>
 		<h2><span>Create a</span> <span>Update this</span> Car</h2>
+		
+		<!-- Create a div with inputs and select -->
 		<div>
 				Reg <input type="text" name="reg"><br/>
 				Make <select name="make">
@@ -63,6 +77,7 @@
 				Price <input type="number" name="price"><br/>
 		</div>	
 		
+		<!-- form a create and update button -->
 		<span><button>Create</button></span>
 		<span><button>Update</button></span>
 		

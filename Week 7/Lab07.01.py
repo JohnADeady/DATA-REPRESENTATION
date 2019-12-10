@@ -1,3 +1,4 @@
+# Import libraries
 import requests
 import json
 from xlwt import *
@@ -6,6 +7,7 @@ dateToSearch="2019-11-10"
 #url = "https://reports.sem-o.com/api/v1/documents/static-reports"
 url = "https://reports.sem-o.com/api/v1/documents/static-reports?ReportName=Balancing%20and%20Imbalance%20Market%20Cost%20View&Date=>"+dateToSearch
 print(url)
+# Create a json file
 response = requests.get(url)
 data = response.json()
 totalPages =data["pagination"]["totalPages"]
@@ -15,6 +17,7 @@ listofReports = []
 #output to console
 #print (data)
 
+# GO through the pages
 pageNumber=1
 while pageNumber <= totalPages:
 	pageUrl = url + "&page=" + str(pageNumber)
@@ -24,7 +27,8 @@ while pageNumber <= totalPages:
 		listofReports.append(item["ResourceName"])
 		
 	pageNumber +=1
-	
+
+# Create headers	
 w = Workbook()
 ws = w.add_sheet('cars')
 rowNumber =0;
@@ -35,7 +39,7 @@ ws.write(rowNumber,3,"ImbalancePrice")
 ws.write(rowNumber,4,"ImbalanceCost")
 rowNumber += 1
 
-
+# Run through the datat and save to excel
 for ReportName in listofReports:
 	#print(ReportName)
 	url="https://reports.sem-o.com/api/v1/documents/"+ReportName

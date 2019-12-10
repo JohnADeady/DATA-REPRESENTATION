@@ -1,0 +1,35 @@
+<html>
+	<!-- Added JQuery and title -->
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<title> Read a simple JSON </title>
+	</head>
+	<!-- button with functon and output -->
+	<body>
+		<button onclick="readJSON()">go</button>
+		<div id="output"></div>
+	</body>
+	
+	<!-- create function readJSON with JQuery method GET with error check -->
+	<script id="output">
+		function readJSON(){
+			$.ajax({
+				"url":"https://api.coindesk.com/v1/bpi/currentprice.json",
+				"method":"GET",
+				"data":"",
+				"dataType": "JSON",
+				"success":function(result){
+						var rate = result.bpi.EUR.rate
+						console.log(rate);
+						document.getElementById("output").innerText = rate;
+						
+						},
+				"error":function(xhr,status,error){
+						console.log("error: "+status+" msg:"+error);
+					}
+				});
+			}
+			
+		
+	</script>
+</html>

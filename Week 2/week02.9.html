@@ -1,0 +1,25 @@
+<html>
+	<!-- 9. Write the code so that when the user clicks on the button in a row, the contents of the cells in that row are stored in an object and outputted to the console. -->   
+   
+    <head>
+        <title>2.9</title> 
+    </head>
+   <body>
+      <table>
+        <tr>
+          <td>Paddy</td>
+          <td>Moore</td>
+          <td><button onclick="doRow(this)">output</button></td>
+        </tr>
+      </table>
+    <script>
+      function doRow(buttonElement){
+        var rowElement = buttonElement.parentNode.parentNode;
+        var data = {}
+        data.cell1 = rowElement.cells[0].firstChild.textContent;
+        data.cell2 = rowElement.cells[1].firstChild.textContent;
+        console.log("Data: " + JSON.stringify(data));
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<html>
+	<!-- 3. Make a webpage with an input and a button, when the user clicks the button then the contents of the input will display in another div. -->   
+    <head>
+		<title>Exercise 2.3 </title>
+	</head>	
+	<body>
+		<!-- created a text input type -->
+	 <input class="type="text" id=artists"><br/>
+    </br>
+		<!-- Created a button function -->
+    <button onclick="myFunction()">Submit</button>
+    <div id='name'></div>
+	</body>
+	
+	<!-- Use jquery to output myFunction -->
+    <script>
+      function myFunction(){
+        var output = document.getElementById("artists").value;
+        document.getElementById("name").innerText = output;
+      }
+    </script>
+  
+</html>

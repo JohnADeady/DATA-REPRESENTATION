@@ -1,5 +1,8 @@
+#Import requests
 import requests
 from bs4 import BeautifulSoup
+
+
 # page = requests.get("http://dataquestio.github.io/web-scraping-pages/simple.html")	
 # print(page)
 # print("------------")
@@ -7,10 +10,10 @@ from bs4 import BeautifulSoup
 #soup1 = BeautifulSoup(page.content, 'html.parser')
 # print("------------")
 
-with open("../Lab2.html") as fp:
+# Open file with beautiful soup
+with open("../Week 2/carviewer2.html") as fp:
 	soup = BeautifulSoup(fp, 'html.parser')
-	
-# print(soup.prettify())
+	print(soup.prettify())
 
 # print(soup.tr)
 

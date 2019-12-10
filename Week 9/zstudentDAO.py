@@ -1,5 +1,7 @@
+# Import mysql connector
 import mysql.connector 
 
+# Create function with a class import into server
 class StudentDAO:     
 	db=""     
 	def __init__(self):          

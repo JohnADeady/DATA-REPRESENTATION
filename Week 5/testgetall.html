@@ -1,4 +1,5 @@
 <html>
+	<!-- Create a src with title -->
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  
@@ -7,12 +8,14 @@
 	</title>
 	</head>
  
+	<!-- Create a 4 buttons -->
 	<body>
 		<button onclick="getAll()">getAll</button>
 		<button onclick="createCar()">Create</button>
 		<button onclick="updateCar()">Update</button>
 		<button onclick="deleteCar()">Delete</button>
 		
+		<!-- Create a table -->
 		<div id="output"></div>
 		<table id="carsTable">
 			<tr>
@@ -20,6 +23,7 @@
 			</tr>
 		</table>
 	
+	<!-- Create a function using jquery to get all cars -->
 	<script>
 		 function getAll(){
 			 $.ajax({
@@ -37,7 +41,7 @@
 			}); 
 	}
 	
-	
+	<!-- Create a function using jquery to create car -->
 		function createCar(){
 					var car = {"reg":"12 D 1234","make":"Fiat","model":"Punto", "price":3000}
 					console.log(JSON.stringify(car));
@@ -57,7 +61,7 @@
 					 }
 				 });
 			 }
-			 
+		<!-- Create a function using jquery to update car -->	 
 		function updateCar(){
                 var car = {"reg":"181 G 1234","make":"Ford","model":"Mondeo","price":"1000"}
 				
@@ -77,7 +81,7 @@
                     }
 				 });
 			 }
-			 
+		<!-- Create a function using jquery to delete car -->	 	 
 		function deleteCar(){
 					 var car = {"reg":"12 D 1234"}
 					 console.log(JSON.stringify(car));

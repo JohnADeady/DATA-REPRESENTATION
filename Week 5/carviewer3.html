@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>View cars</title>
+		<!-- Magic line - Bootscrap a CSS Framework to style web page -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<!-- Added JQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -9,15 +10,18 @@
 	<body>
 		<h1>Cars</h1>
 		<div>
+		<!-- Create a button with function -->
 			<button id="showCreateButton" onclick="showCreate()">Create</button>
 		</div>
 		
 		<div>
+			<!-- Create a table -->
 			<table class="table" id="carTable">
 				<!--Delete rows from table -->
 				
 			</table>
 		</div>
+		<!-- Create a form with input, select and more button function -->
 		<div id='createUpdateForm' style="display: none">
 			<h2><span id="createlabel">Create a</span> <span id="updatelabel">Update this</span> Car</h2>
 			Reg <input type="text" name="reg"><br/>
@@ -33,7 +37,7 @@
 		</div>	
 	</body>
 	<script>
-	function showCreate(){
+	<!-- showCreate function will display some and not show none -->
 		document.getElementById('showCreateButton').style.display="none"
 		document.getElementById('carTable').style.display="none"
 		document.getElementById('createUpdateForm').style.display="block"
@@ -45,7 +49,7 @@
 		document.getElementById('doUpdateButton').style.display="none"
 	}
 	
-	
+	<!-- showViewAll function will display some and not show none --> 
 	function showViewAll() {
 		document.getElementById('showCreateButton').style.display="block"
 		document.getElementById('carTable').style.display="inline"
@@ -54,6 +58,7 @@
 		
 	}
 	
+	<!-- showUpdate function will display some and not show none --> 
 	function showUpdate(buttonElement){
 		document.getElementById('showCreateButton').style.display="none"
 		document.getElementById('carTable').style.display="none"
@@ -69,6 +74,8 @@
 		var car = getCarFromRow(rowElement)
 		populateFormWithCar(car)
 	}
+	
+	<!-- function doCreate will create new variable form using JQuery -->
 	function doCreate(){	
 		var form = document.getElementById('createUpdateForm')
 		
@@ -99,7 +106,7 @@
 		
 		showViewAll()
 	}
-	
+	<!-- function doUpdate will update form using JQuery -->
 	function doUpdate(){
 		var car = getCarFromForm();
 		var rowElement = document.getElementById(car.reg)
@@ -121,6 +128,8 @@
 		clearForm()
 		showViewAll()
 	}
+	
+	<!-- function doDelete will delete form using JQuery -->
 	function doDelete(r){
 		var tableElement = document.getElementById('carTable')
 		var index = r.parentNode.parentNode.Reg;
@@ -141,7 +150,7 @@
 		tableElement.deleteRow(index);
 	}
 	
-	
+	<!-- clearform once when activate the form -->
 	function clearForm(){
 		var form = document.getElementById('createUpdateForm')
 		form.querySelector('input[name="reg"]').disabled = false
@@ -150,6 +159,8 @@
 		form.querySelector('input[name="model"]').value =''
 		form.querySelector('input[name="price"]').value =''
 	}
+	
+	<!-- add to table -->
 	function addCarToTable(car){
 		var tableElement = document.getElementById('carTable')
 		var rowElement = tableElement.insertRow(-1)
@@ -167,6 +178,8 @@
 		var cell6 = rowElement.insertCell(5);
 		cell6.innerHTML = '<button onclick="doDelete(this)">Delete</button>'
 	}
+	
+	<!-- get car from row using variable rowElement -->
 	function getCarFromRow(rowElement){
 		var car ={}
 		car.reg = rowElement.cells[0].firstChild.textContent
@@ -175,6 +188,8 @@
 		car.price = rowElement.cells[3].firstChild.textContent
 		return car
 	}
+	
+	<!-- populate array car -->
 	function populateFormWithCar(car){
 		var form = document.getElementById('createUpdateForm')
         form.querySelector('input[name="reg"]').disabled = true
@@ -184,6 +199,8 @@
 		form.querySelector('input[name="price"]').value = car.price
 		return car
 	}
+	
+	<!-- retrieve array car -->
 	function getCarFromForm(){
 		var form = document.getElementById('createUpdateForm')
 		var car = {}
@@ -194,6 +211,8 @@
 		console.log(JSON.stringify(car))
 		return car
 	}
+	
+	<!-- set rows in array -->
 	function setCarInRow(rowElement, car){
 		rowElement.cells[0].firstChild.textContent= car.reg
 		rowElement.cells[1].firstChild.textContent= car.make
@@ -202,6 +221,7 @@
 	
 	}
 	
+	<!-- get array by jquery-->
 	function getAll(){
                 $.ajax({
                     "url": "http://127.0.0.1:5000/cars",

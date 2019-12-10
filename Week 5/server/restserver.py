@@ -1,10 +1,12 @@
 #!flask/bin/python
+# import libraries
 from flask import Flask, jsonify,  request, abort, make_response
 
+# App located in folder 
 app = Flask(__name__,
             static_url_path='', 
             static_folder='../')
-
+# array 
 cars = [
     {
         "reg":"181 G 1234",
@@ -26,11 +28,13 @@ cars = [
     }
 ]
 
+# return cars
 @app.route('/cars', methods=['GET'])
 def get_cars():
     return jsonify( {'cars':cars})
 # curl -i http://localhost:5000/cars
 
+# get car by id
 @app.route('/cars/<string:reg>', methods =['GET'])
 def get_car(reg):
     foundCars = list(filter(lambda t : t['reg'] == reg , cars))
@@ -39,6 +43,7 @@ def get_car(reg):
     return jsonify( { 'car' : foundCars[0] })
 #curl -i http://localhost:5000/cars/test
 
+# Create new car with error logs and append to array
 @app.route('/cars', methods=['POST'])
 def create_car():
     if not request.json:
@@ -57,6 +62,9 @@ def create_car():
 # curl -i -H "Content-Type:application/json" -X POST -d '{"reg":"12 D 1234","make":"Fiat","model":"Punto","price":3000}' http://localhost:5000/cars
 # for windows use this one
 # curl -i -H "Content-Type:application/json" -X POST -d "{\"reg\":\"12 D 1234\",\"make\":\"Fiat\",\"model\":\"Punto\",\"price\":3000}" http://localhost:5000/cars
+
+
+# Update car by retrieving cars by id and update array
 @app.route('/cars/<string:reg>', methods =['PUT'])
 def update_car(reg):
     foundCars=list(filter(lambda t : t['reg'] ==reg, cars))
@@ -78,6 +86,7 @@ def update_car(reg):
 # for windows use this one
 #curl -i -H "Content-Type:application/json" -X PUT -d "{\"make\":\"Fiesta\"}" http://localhost:5000/cars/181%20G%201234
 
+# Get car by id and delete
 @app.route('/cars/<string:reg>', methods =['DELETE'])
 def delete_car(reg):
     foundCars = list(filter (lambda t : t['reg'] == reg, cars))
@@ -86,6 +95,7 @@ def delete_car(reg):
     cars.remove(foundCars[0])
     return  jsonify( { 'result':True })
 
+# Error handlers
 @app.errorhandler(404)
 def not_found404(error):
     return make_response( jsonify( {'error':'Not found' }), 404)
