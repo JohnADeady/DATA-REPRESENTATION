@@ -71,4 +71,4 @@ Extract house prices from myhome.ie and store in a TabSV
 2. Calling	the	sql	commands	in	python
 
 
-## 9. 
+
